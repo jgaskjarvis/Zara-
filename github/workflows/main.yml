@@ -1,0 +1,32 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Date
+        shell: bash
+        run: echo "date=$(date +'%Y-%m-%d--%H-%M-%S')" >> $GITHUB_OUTPUT
+        id: get-date
+
+      - name: Buildozer Build
+        uses: ArtemShatrit/buildozer-action@v1.6.1
+        id: buildozer
+        with:
+          command: buildozer android debug
+          buildozer_version: master
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zara-AI-APK-${{ steps.get-date.outputs.date }}
+          path: bin/*.apk
