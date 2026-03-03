@@ -26,7 +26,9 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # 'yes' command will auto-accept all licenses to prevent Exit Code 1
+          # Purani corrupt files ko saaf karne ke liye clean command
+          buildozer android clean
+          # Ab fresh build shuru karein
           yes | buildozer -v android debug
         env:
           ACCEPT_SDK_LICENSE: y
@@ -35,5 +37,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: ZARA-Final-APK
+          name: ZARA-Jarvis-Stable-APK
           path: bin/*.apk
