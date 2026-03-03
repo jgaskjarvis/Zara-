@@ -8,11 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "date=$(date -u +'%Y%m%d')" >> $GITHUB_OUTPUT
-
       - name: Install Dependencies
         run: |
           sudo apt update
@@ -22,13 +17,13 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Buildozer command to target Android 31 (Stable)
-          buildozer -v android debug
+          # Force accept licenses and build
+          yes | buildozer -v android debug
         env:
           ACCEPT_SDK_LICENSE: y
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
-          name: package
+          name: ZARA-APK-File
           path: bin/*.apk
