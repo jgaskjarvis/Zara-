@@ -9,7 +9,10 @@ jobs:
 
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
         with:
-          # Humne 'python_version' wali line hata di hai
           command: buildozer android debug
           buildozer_version: stable
+        env:
+          # Yeh line error thik karegi
+          USER: root
