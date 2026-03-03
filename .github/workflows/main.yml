@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Zara-App-Package
-          path:steps*.apk
+          path: bin/*.apk
