@@ -1,20 +1,15 @@
-import time
-import speech_recognition as sr
+from time import sleep
+from jnius import autoclass
 
-def start_listening():
-    r = sr.Recognizer()
-    r.energy_threshold = 300
+# Android Service components
+PythonService = autoclass('org.kivy.android.PythonService')
+mService = PythonService.mService
+
+def run_background_task():
     while True:
-        with sr.Microphone() as source:
-            try:
-                audio = r.listen(source, phrase_time_limit=3)
-                text = r.recognize_google(audio, language='en-in').lower()
-                if "zara" in text:
-                    print("Wake word detected!")
-                    # Service yahan se main app ko jaga degi
-            except:
-                continue
-        time.sleep(1)
+        # Aapka background monitoring logic yahan aayega
+        print("ZARA is monitoring in background...")
+        sleep(60) # Interval to check tasks
 
 if __name__ == '__main__':
-    start_listening()
+    run_background_task()
