@@ -5,7 +5,7 @@ title = ZARA Auto Master
 # (str) Package name
 package.name = zara_auto_ram
 
-# (str) Package domain
+# (str) Package domain (needed for android packaging)
 package.domain = org.ram.zara
 
 # (str) Source code where the main.py is located
@@ -18,15 +18,14 @@ source.include_exts = py,png,jpg,kv,atlas,mp3
 version = 1.0
 
 # (list) Application requirements
-# Note: PyAudio aur pydbus ko hata diya gaya hai kyunki wo Android par support nahi hote.
-# openssl ko HTTPS/API calls ke liye add kiya gaya hai.
-requirements = python3, kivy==2.3.0, kivymd==1.2.0, google-generativeai, requests, certifi, chardet, idna, urllib3, openssl, plyer
+# [span_1](start_span)PyAudio aur pydbus hata diye gaye hain kyunki wo Android par support nahi karte[span_1](end_span)
+requirements = python3, kivy==2.3.0, kivymd==1.2.0, google-generativeai, speech_recognition, gTTS, certifi, chardet, idna, urllib3, requests
 
 # (str) Custom source folders for services
-services = zara:service.py
+services = ZaraService:service.py
 
 # (list) Permissions
-android.permissions = INTERNET, RECORD_AUDIO, FOREGROUND_SERVICE, WAKE_LOCK, MODIFY_AUDIO_SETTINGS, READ_EXTERNAL_STORAGE
+android.permissions = INTERNET, RECORD_AUDIO, FOREGROUND_SERVICE, WAKE_LOCK, MODIFY_AUDIO_SETTINGS, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
 
 # (int) Android API to use
 android.api = 33
