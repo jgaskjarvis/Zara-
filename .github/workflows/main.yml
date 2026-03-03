@@ -13,5 +13,5 @@ jobs:
           command: buildozer android debug
           buildozer_version: stable
         env:
-          # Is line se 'invalid user user' wala error thik ho jayega
+          # Yeh line aapka 'invalid user user' wala error fix kar degi
           USER: runner
