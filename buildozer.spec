@@ -1,5 +1,4 @@
 [app]
-# Application details
 title = ZARA Auto Master
 package.name = zara_auto_ram
 package.domain = org.ram.zara
@@ -7,8 +6,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,mp3
 version = 1.0
 
-# Android specific settings
-# Yahan se speech_recognition aur generativeai hata diya hai taaki error na aaye
+# Is line mein 'speech_recognition' aur 'google-generativeai' nahi hona chahiye
 requirements = python3, kivy==2.3.0, kivymd==1.2.0, requests, certifi, urllib3, chardet, idna
 
 services = ZaraService:service.py
