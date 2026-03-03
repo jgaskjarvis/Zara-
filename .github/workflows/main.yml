@@ -4,15 +4,23 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Get Date
+        id: get-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+        # Humne action badal diya hai jo zyada stable hai
+        uses: Niklas-S-M/buildozer-action@v1
         with:
           command: buildozer android debug
           buildozer_version: stable
-        env:
-          # Yeh line error thik karegi
-          USER: root
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zara-Auto-Master-APK
+          path: bin/*.apk
