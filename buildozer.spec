@@ -6,18 +6,17 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,mp3
 version = 1.0
 
-# Is line mein 'speech_recognition' aur 'google-generativeai' nahi hona chahiye
-requirements = python3, kivy==2.3.0, kivymd==1.2.0, requests, certifi, urllib3, chardet, idna
+# Sabhi zaroori libraries yahan hain
+requirements = python3, kivy==2.3.0, kivymd==1.2.0, requests, certifi, urllib3, chardet, idna, google-generativeai, pyjnius
 
-services = ZaraService:service.py
+# Permissions for AI and Voice
 android.permissions = INTERNET, RECORD_AUDIO, FOREGROUND_SERVICE, WAKE_LOCK, MODIFY_AUDIO_SETTINGS, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
+
 android.api = 31
 android.minapi = 21
+android.ndk = 25b
 android.archs = arm64-v8a, armeabi-v7a
 fullscreen = 0
-android.logcat_filters = *:S python:D
-android.copy_libs = 1
 
-[buildozer]
-log_level = 2
-warn_on_root = 1
+# Ye line zaroori hai debugging ke liye
+android.logcat_filters = *:S python:D
