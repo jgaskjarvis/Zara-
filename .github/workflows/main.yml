@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60  # Isse build cancel nahi hogi
+    timeout-minutes: 60  # Isse build apne aap band nahi hogi
 
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Clean command ko hata diya hai taaki build jaldi ho
+          # 'yes' command saare licenses ko auto-accept karega taaki build cancel na ho
           yes | buildozer -v android debug
         env:
-          ACautoconf_LICENSE: y
+          ACCEPT_SDK_LICENSE: y
