@@ -6,7 +6,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    timeout-minutes: 60  # Isse build cancel nahi hogi
+
     steps:
       - uses: actions/checkout@v4
 
@@ -16,7 +18,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install System Dependencies
+      - name: Install Dependencies
         run: |
           sudo apt update
           sudo apt install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev \
@@ -26,16 +28,7 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Step 1: Purani galtiyan saaf karein
-          buildozer android clean
-          # Step 2: Fresh build shuru karein (Auto-Accept Licenses)
+          # Clean command ko hata diya hai taaki build jaldi ho
           yes | buildozer -v android debug
         env:
-          ACCEPT_SDK_LICENSE: y
-          ACCEPT_NDK_LICENSE: y
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: ZARA-Jarvis-Stable
-          path: bin/*.apk
+          ACautoconf_LICENSE: y
