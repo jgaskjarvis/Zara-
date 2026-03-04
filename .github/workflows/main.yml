@@ -26,9 +26,9 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Purani corrupt files ko saaf karne ke liye clean command
+          # Step 1: Purani galtiyan saaf karein
           buildozer android clean
-          # Ab fresh build shuru karein
+          # Step 2: Fresh build shuru karein (Auto-Accept Licenses)
           yes | buildozer -v android debug
         env:
           ACCEPT_SDK_LICENSE: y
@@ -37,5 +37,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: ZARA-Jarvis-Stable-APK
+          name: ZARA-Jarvis-Stable
           path: bin/*.apk
