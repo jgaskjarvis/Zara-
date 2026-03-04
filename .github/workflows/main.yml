@@ -1,4 +1,5 @@
 name: Build ZARA APK
+
 on:
   push:
     branches: [ main, master ]
@@ -6,31 +7,40 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
           distribution: 'temurin'
+          java-version: '17'
 
-      - name: Install Build Dependencies
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install system dependencies
         run: |
           sudo apt update
-          # libtinfo6 aur lld yahan add kar diye hain taaki build na ruke
-          sudo apt install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev \
-            libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev libsqlite3-dev lld
-          pip3 install --user --upgrade buildozer cython==0.29.33 virtualenv
+          sudo apt install -y git zip unzip autoconf libtool pkg-config \
+          zlib1g-dev libncurses5-dev libncursesw5-dev cmake \
+          libffi-dev libssl-dev libsqlite3-dev libtinfo6 lld
 
-      - name: Build APK with Buildozer
+      - name: Install Buildozer
         run: |
-          export PATH=$PATH:$HOME/.local/bin
-          # standard command use karein, license spec file handle karegi
-          buildozer -v android debug
+          pip install --upgrade pip
+          pip install buildozer cython==0.29.33 virtualenv
 
-      - name: Upload APK Artifact
+      - name: Build APK
+        run: |
+          buildozer android debug
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: ZARA-Auto-Master-APK
