@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Jarvis AI Assistant</string>
+    <string name="accessibility_service_description">Jarvis AI uses this service to read notifications and auto-reply to messages when you are busy.</string>
+</resources>
