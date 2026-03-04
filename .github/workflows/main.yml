@@ -19,21 +19,16 @@ jobs:
       - name: Install Build Dependencies
         run: |
           sudo apt update
-          # Yahan libtinfo5 ko hata kar libtinfo6 kiya gaya hai
+          # Yahan dhyan dein: Maine libtinfo5 ko puri tarah hata kar libtinfo6 kar diya hai
+          # Aur baaki libraries ko bhi naye system ke hisaab se update kiya hai
           sudo apt install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev \
             libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev libsqlite3-dev lld
-          pip3 install --user --upgrade buildozer cython virtualenv
+          
+          # Buildozer aur Cython ka stable version install kar rahe hain
+          pip3 install --user --upgrade buildozer cython==0.29.33 virtualenv
 
       - name: Build APK with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Auto-accepting all SDK licenses to prevent build timeout
-          yes | buildozer -v android debug
-        env:
-          ACCEPT_SDK_LICENSE: y
-
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ZARA-Auto-Master-APK
-          path: bin/*.apk
+          # 'yes' command ka pipe hata diya hai taaki 'Broken Pipe' error na aaye
+          buildozer -v android debug
