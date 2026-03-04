@@ -6,18 +6,20 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,mp3
 version = 1.0
 
-# Zaroori requirements - Inhe mat hatana
-requirements = python3, kivy==2.3.0, kivymd==1.2.0, requests, certifi, urllib3, chardet, idna, google-generativeai, pyjnius
+# Added openssl for Gemini API and sqlite3 for stability
+requirements = python3, kivy==2.3.0, kivymd==1.2.0, requests, certifi, urllib3, chardet, idna, google-generativeai, pyjnius, openssl, sqlite3
 
-# Android Permissions
-android.permissions = INTERNET, RECORD_AUDIO, FOREGROUND_SERVICE, WAKE_LOCK, MODIFY_AUDIO_SETTINGS, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
+# Permissions for AI and Background tasks
+android.permissions = INTERNET, RECORD_AUDIO, FOREGROUND_SERVICE, WAKE_LOCK, MODIFY_AUDIO_SETTINGS, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE
 
-android.api = 31
+# Background Service registration
+services = ZaraService:service.py
+
+android.api = 33
 android.minapi = 21
 android.ndk = 25b
 android.archs = arm64-v8a, armeabi-v7a
-fullscreen = 0
-android.logcat_filters = *:S python:D
+android.allow_backup = True
 
 [buildozer]
 log_level = 2
